@@ -2,5 +2,19 @@
   "name": "robinboob-remake",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "db:push": "drizzle-kit push:pg",
+    "db:seed": "tsx db/seed/seed.ts",
+    "db:start": "docker compose -f db/.docker/docker-compose.development.yaml down && docker compose -f db/.docker/docker-compose.development.yaml up",
+    "db:studio": "npx drizzle-kit studio"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.9"
+  }
 }

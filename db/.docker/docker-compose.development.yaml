@@ -1,0 +1,36 @@
+# If npm dependencies change, you might need to run
+# docker compose -f db/.docker/docker-compose.development.yaml build
+# to regenerate the node_modules folder
+version: "3"
+services:
+  robinboob-postgres:
+    image: "postgres:15"
+    env_file:
+      - ../../.env.development
+    ports:
+      - "35433:5432"
+    user: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db-init:
+    build:
+      context: ../..
+      dockerfile: ./db/.docker/Dockerfile
+    # After starting the DB we push the schema and seed data
+    command: sh -c "cd app && yarn run db:push"
+    environment:
+      # This is the environment within the container
+      - POSTGRES_HOST=robinboob-postgres
+      - POSTGRES_PORT=5432
+    env_file:
+      - ../../.env.development
+    depends_on:
+      robinboob-postgres:
+        condition: service_healthy
+    volumes:
+      - ../..:/app
+      - /app/node_modules
