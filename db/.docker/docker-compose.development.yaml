@@ -21,7 +21,7 @@ services:
       context: ../..
       dockerfile: ./db/.docker/Dockerfile
     # After starting the DB we push the schema and seed data
-    command: sh -c "cd app && yarn run db:push"
+    command: sh -c "cd src && yarn run db:push"
     environment:
       # This is the environment within the container
       - POSTGRES_HOST=robinboob-postgres
@@ -32,5 +32,5 @@ services:
       robinboob-postgres:
         condition: service_healthy
     volumes:
-      - ../..:/app
-      - /app/node_modules
+      - ../..:/src
+      - /src/node_modules
