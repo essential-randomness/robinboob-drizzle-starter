@@ -16,6 +16,11 @@ export const characters = pgTable("characters", {
     .notNull()
     .unique(),
   name: text("name").notNull(),
+});
+
+export const characters_to_canonical = pgTable("characters_to_canonical", {
+  id: serial("id").primaryKey(),
+  character_id: serial("character_id").references(() => characters.id),
   canonical_id: serial("canonical_id").references(() => characters.id),
 });
 

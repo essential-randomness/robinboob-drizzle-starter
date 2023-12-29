@@ -2,6 +2,7 @@
   "name": "robinboob-remake",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "db:push": "drizzle-kit push:pg",
@@ -12,9 +13,13 @@
   "dependencies": {
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "postgres": "^3.4.3"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.20.9"
+    "common-tags": "^1.8.2",
+    "drizzle-kit": "^0.20.9",
+    "glob": "^10.3.10",
+    "tsx": "^4.7.0"
   }
 }
